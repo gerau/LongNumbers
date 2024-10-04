@@ -1,4 +1,5 @@
 #include "LongNumber.h"
+#include <bits/stdc++.h>
 #include <string>
 
 LongNumber::LongNumber()
@@ -283,6 +284,38 @@ LongNumber LongNumber::lcm(LongNumber& first, LongNumber& second)
     LongNumber a = (first * second);
     LongNumber b = gcd(first, second);
     return a / b;
+}
+
+uint8_t LongNumber::bitAt(int position)
+{
+    if (position > 32 * NUMBER_LENGTH) {
+        return 0;
+    }
+    int digit_shifts = position / 32;
+    int bit_shifts = position % 32;
+
+    return (number_array[digit_shifts] >> bit_shifts) & 1;
+}
+
+void LongNumber::setBitAt(int position)
+{
+    if (position > 32 * NUMBER_LENGTH) {
+        return;
+    }
+    int digit_shifts = position / 32;
+    int bit_shifts = position % 32;
+
+    number_array[digit_shifts] |= (1 << bit_shifts);
+}
+
+int LongNumber::bitCount()
+{
+    int count = 0;
+
+    for (int i = 0; i < NUMBER_LENGTH; i++) {
+        count += __builtin_popcount(number_array[i]);
+    }
+    return count;
 }
 
 LongNumber LongNumber::rightDigitShift(int shift) const

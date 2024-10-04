@@ -35,6 +35,11 @@ public:
     int bitLength() const;
     int digitLength() const;
 
+    uint8_t bitAt(int position);
+    void setBitAt(int position);
+
+    int bitCount();
+
     LongNumber rightDigitShift(int shift) const;
     LongNumber leftDigitShift(int shift) const;
 
